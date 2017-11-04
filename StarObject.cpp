@@ -16,7 +16,8 @@ int        StarObject::count = 0;
 
 List *StarObject::stack = new List();
 
-StarObject::StarObject(Field *f) : AObject(f, '.', 1, (rand() % (W - 2)) + 1) {
+StarObject::StarObject(Field *f) :
+		AObject(f, '.', (rand() % (H / 2)) + 1, (rand() % (W - 2)) + 1) {
 	StarObject::count++;
 }
 
@@ -46,7 +47,8 @@ int StarObject::getCount() {
 
 void StarObject::update(Field *f) {
 	StarObject::clean();
-	while (StarObject::count < STAR) {
+	for (int i = 0; i < STAR; i++) {
+//	while (StarObject::count < STAR) {
 		StarObject::stack->push(new StarObject(f));
 	}
 }
@@ -59,7 +61,7 @@ void StarObject::clean() {
 	for (i = 0; i < j; i++) {
 		star = static_cast<StarObject *>(StarObject::stack->pop());
 		star->fall();
-		if (star->y >= H - 1) {
+		if (star->y >= H - 2) {
 			delete (star);
 		}
 		else {

@@ -34,7 +34,7 @@ static void game_loop() {
 		key = getch();
 		player.keyHook(key);
 		StarObject::update(f);
-//		usleep()
+		usleep(10000);
 	} while (key != 'q');
 }
 

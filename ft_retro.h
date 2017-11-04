@@ -15,6 +15,7 @@
 
 # include <ncurses.h>
 # include <iostream>
+# include <unistd.h>
 
 #define LEFT 260
 #define RIGHT 261
@@ -23,7 +24,7 @@
 #define ATTACK 32
 #define H 60
 #define W 120
-#define STAR 10
+#define STAR 5
 
 
 

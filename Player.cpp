@@ -45,6 +45,9 @@ void Player::keyHook(int key) {
 		case DOWN:
 			this->move(this->x, this->y - 1);
 			break;
+		case ATTACK:
+			nodelay(stdscr, false);
+			break;
 		default:
 //			wprintw(f->getWin(), "%d", key);
 //			wrefresh(f->getWin());

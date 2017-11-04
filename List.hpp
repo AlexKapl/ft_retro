@@ -26,6 +26,8 @@ public:
 
 	List(List const &copy);
 
+	List(void *data, List *l);
+
 	~List();
 
 	List &operator=(List const &assign);
@@ -37,6 +39,9 @@ public:
 private:
 	void		*data;
 	List		*next;
+	List		*prev;
+	List		*start;
+	List		*end;
 };
 
 

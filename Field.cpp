@@ -13,12 +13,12 @@
 #include "Field.hpp"
 
 Field::Field()
-		: win(newwin(Field::h, Field::w, 0, 0)) {
+		: h(H), w(W), win(newwin(Field::h, Field::w, 0, 0)) {
 	wborder(win, '|', '|', 0, 0, 0, 0, 0, 0);
 	wrefresh(win);
 }
 
-Field::Field(Field const &copy) : win(copy.win) {}
+Field::Field(Field const &copy) : h(H), w(W), win(copy.win) {}
 
 Field::~Field() {}
 
@@ -27,11 +27,11 @@ Field &Field::operator=(Field const &) {
 }
 
 int Field::getH() {
-	return Field::h;
+	return h;
 }
 
 int Field::getW() {
-	return Field::w;
+	return w;
 }
 
 void Field::erase(const int y, const int x) {

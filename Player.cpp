@@ -24,9 +24,9 @@ Player &Player::operator=(Player const &) {
 
 void Player::move(int x, int y) {
 	this->f->erase(this->y, this->x);
-	if (y > 0 && y < Field::getH())
+	if (y > 0 && y < f->getH() - 1)
 		this->y = y;
-	if (x > 0 && x < Field::getW())
+	if (x > 0 && x < f->getW() - 1)
 		this->x = x;
 	this->f->update(this->y, this->x, this->sym);
 }
@@ -46,8 +46,8 @@ void Player::keyHook(int key) {
 			this->move(this->x, this->y - 1);
 			break;
 		default:
-			wprintw(f->getWin(), "%d", key);
-			wrefresh(f->getWin());
+//			wprintw(f->getWin(), "%d", key);
+//			wrefresh(f->getWin());
 			break;
 	}
 }

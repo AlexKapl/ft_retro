@@ -31,16 +31,16 @@ public:
 
 	void		update(const int y, const int x, const int sym);
 
-	static int getW();
+	int getW();
 
-	static int getH();
+	int getH();
 
 	WINDOW *getWin() const;
 
 private:
+	const int	h;
+	const int	w;
 	WINDOW		*win;
-	static const int	h = 60;
-	static const int	w = 120;
 	static const int	empty = ' ';
 };
 

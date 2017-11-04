@@ -12,16 +12,60 @@
 
 #include "StarObject.hpp"
 
-StarObject::StarObject(Field *f) : AObject(f, 'A', 1, 1) {}
+int        StarObject::count = 0;
 
-StarObject::StarObject(StarObject const &copy) : AObject(copy) {}
+List *StarObject::stack = new List();
 
-StarObject::~StarObject() {}
+StarObject::StarObject(Field *f) : AObject(f, '.', 1, (rand() % (W - 2)) + 1) {
+	StarObject::count++;
+}
+
+StarObject::StarObject(StarObject const &copy) : AObject(copy) {
+	StarObject::count++;
+}
+
+StarObject::~StarObject() {
+	StarObject::count--;
+	AObject::~AObject();
+}
 
 StarObject &StarObject::operator=(StarObject const &) {
 	return *this;
 }
 
 void StarObject::fall() {
+	f->erase(this->y, this->x);
 	this->y++;
+	if (this->y < H - 1)
+		f->update(this->y, this->x, this->sym);
+}
+
+int StarObject::getCount() {
+	return count;
+}
+
+void StarObject::update(Field *f) {
+	StarObject::clean();
+	while (StarObject::count < STAR) {
+		StarObject::stack->push(new StarObject(f));
+	}
+}
+
+void StarObject::clean() {
+	List *list = new List();
+	StarObject *star;
+	int i, j = StarObject::count;
+
+	for (i = 0; i < j; i++) {
+		star = static_cast<StarObject *>(StarObject::stack->pop());
+		star->fall();
+		if (star->y >= H - 1) {
+			delete (star);
+		}
+		else {
+			list->push(star);
+		}
+	}
+	delete(StarObject::stack);
+	StarObject::stack = list;
 }

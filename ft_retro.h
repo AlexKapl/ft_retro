@@ -20,9 +20,10 @@
 #define RIGHT 261
 #define DOWN 259
 #define UP 258
-#define H = 60
-#define W = 120
 #define ATTACK 32
+#define H 60
+#define W 120
+#define STAR 10
 
 
 

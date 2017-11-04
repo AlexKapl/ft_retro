@@ -12,11 +12,18 @@
 
 #include "List.hpp"
 
-List::List() : data(nullptr), next(nullptr){}
+List::List() :
+		data(nullptr), next(nullptr), prev(nullptr), start(this), end(this) {}
 
-List::List(void *data) : data(data), next(nullptr){}
+List::List(void *data) : data(data), next(nullptr), prev(nullptr),
+						 start(this), end(this) {}
 
-List::List(List const &copy) : data(copy.data), next(copy.next) {}
+List::List(void *data, List *l) :
+		data(data), next(nullptr), prev(l), start(l->start), end(this) {}
+
+List::List(List const &copy) :
+		data(copy.data), next(copy.next), prev(copy.prev),
+		start(copy.start), end(copy.end) {}
 
 List::~List() {
 	this->data = nullptr;
@@ -27,7 +34,7 @@ List &List::operator=(List const &) {
 	return (*this);
 }
 
-void	List::push(void *data) {
+void List::push(void *data) {
 	List *list = this;
 
 	if (this->data == nullptr)
@@ -35,18 +42,25 @@ void	List::push(void *data) {
 	else {
 		while (list->next)
 			list = list->next;
-		list->next = new List(data);
+		list->next = new List(data, list);
+		this->end = list->next;
 	}
 }
 
 void *List::pop() {
-	List *list = this;
+	void *data;
+	List *list;
 
-	while (this->list) {
-		list = this->list;
-		this->list = this->list->next;
-		delete(list->unit);
-		delete (list);
+	if (this == end) {
+		data = this->data;
+		this->data = nullptr;
+		return (data);
 	}
-	return NULL;
+	else {
+		data = end->data;
+		list = end->prev;
+		delete (end);
+		end = list;
+		return (data);
+	}
 }

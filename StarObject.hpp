@@ -15,6 +15,7 @@
 # define STAROBJECT_HPP
 
 #include "AObject.hpp"
+#include "List.hpp"
 
 class StarObject :
 		public AObject {
@@ -28,8 +29,18 @@ public:
 
 	StarObject &operator=(StarObject const &);
 
+	static int getCount();
+
+	static void	update(Field *f);
+
 private:
 	void	fall();
+
+	static List	*stack;
+
+	static int count;
+
+	static void	clean();
 
 };
 

@@ -12,6 +12,7 @@
 
 #include "ft_retro.h"
 #include "Player.hpp"
+#include "StarObject.hpp"
 
 static void init_ncurses() {
 	initscr();
@@ -19,7 +20,7 @@ static void init_ncurses() {
 	cbreak();
 	noecho();
 	curs_set(0);
-//	nodelay(stdscr, true);
+	nodelay(stdscr, true);
 	keypad(stdscr, true);
 	start_color();
 }
@@ -32,11 +33,14 @@ static void game_loop() {
 	do {
 		key = getch();
 		player.keyHook(key);
+		StarObject::update(f);
+//		usleep()
 	} while (key != 'q');
 }
 
 int main() {
 
+	srand(time(nullptr));
 	init_ncurses();
 	game_loop();
 	return (0);

@@ -15,11 +15,12 @@
 Field::Field() :
 		h(H), w(W), f(new AObject **[h]),
 		win(newwin(h, w, 0, 0)),
-		info(newwin(10, w, h - 1, 0)) {
+		info(newwin(10, w, h - 1, 0)), start(clock()) {
 	for (int i = 0; i < h; i++)
 		f[i] = new AObject *[w];
 	wborder(win, 0, 0, 0, 0, 0, 0, 0, 0);
 	wborder(info, 0, 0, 0, 0, '|', '|', 0, 0);
+	mvwprintw(info, 2, 1, "Time: ");
 	wrefresh(win);
 	wrefresh(info);
 }
@@ -75,4 +76,16 @@ AObject *Field::getObject(int y, int x) {
 
 WINDOW *Field::getInfo() const {
 	return info;
+}
+
+void Field::updateInfo() {
+	static int seconds = 0;
+	double secondsPassed;
+
+	secondsPassed= (clock() - start) / CLOCKS_PER_SEC;
+	if (seconds < (int)secondsPassed) {
+		seconds = static_cast<int>(secondsPassed);
+		mvwprintw(info, 2, 8, "%-3d", seconds);
+	}
+	wrefresh(info);
 }

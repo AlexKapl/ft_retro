@@ -13,7 +13,7 @@
 #include "ObjectSpawner.hpp"
 
 ObjectSpawner::ObjectSpawner() :
-		stars(new StarObject *[100]),
+		stars(new StarObject *[80]),
 		asteroids(new Asteroid *[15]),
 		enemies(new Enemy *[15]),
 		bullets(new Bullet *[20]),
@@ -66,7 +66,7 @@ void ObjectSpawner::update() {
 	if ((static_cast<float>((clock() - bulletClock))
 		 / CLOCKS_PER_SEC * 10000) > 500)
 		updateBullets();
-	if (diff > 1000) {
+	if (diff > 800) {
 		updateStars();
 		updateAsteroids();
 		updateEnemies();

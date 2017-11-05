@@ -31,6 +31,8 @@ public:
 
 	void		update(const int y, const int x, const int sym, AObject * obj);
 
+	void		updateInfo();
+
 	int getW();
 
 	int getH();
@@ -49,6 +51,7 @@ private:
 	AObject		***f;
 	WINDOW		*win;
 	WINDOW		*info;
+	clock_t		start;
 	static const int	empty = ' ';
 };
 

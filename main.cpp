@@ -32,7 +32,7 @@ static void game_loop() {
 	Field *f = new Field();
 	AObject::setF(f);
 	Player *player = new Player();
-	ObjectSpawner * spawner = new ObjectSpawner();
+	ObjectSpawner *spawner = new ObjectSpawner();
 	int key;
 
 	do {
@@ -41,6 +41,7 @@ static void game_loop() {
 		if (player->setPause(key)) {
 			player->keyHook(key, spawner);
 			spawner->update();
+			f->updateInfo();
 			wrefresh(f->getWin());
 		}
 	} while (key != 'q');

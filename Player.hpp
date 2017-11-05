@@ -14,10 +14,10 @@
 #ifndef PLAYER_HPP
 # define PLAYER_HPP
 
-# include "AObject.hpp"
+# include "ObjectDamageable.hpp"
 
 class Player :
-		public AObject {
+		virtual public ObjectDamageable{
 
 public:
 	Player();
@@ -30,8 +30,14 @@ public:
 
 	void keyHook(int key);
 
+	bool setPause(int key);
+
+	virtual int		fall();
+
 private:
 	void move(int x, int y);
+
+	bool	pause;
 };
 
 

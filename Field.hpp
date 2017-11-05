@@ -29,18 +29,24 @@ public:
 
 	void		erase(const int y, const int x);
 
-	void		update(const int y, const int x, const int sym);
+	void		update(const int y, const int x, const int sym, AObject * obj);
 
 	int getW();
 
 	int getH();
+
+	bool isEmpty(int y, int x);
+
+	AObject *	getObject(int y, int x);
+
+	void		storeObject(int y, int x, AObject * obj);
 
 	WINDOW *getWin() const;
 
 private:
 	const int	h;
 	const int	w;
-	char		**f;
+	AObject		***f;
 	WINDOW		*win;
 	static const int	empty = ' ';
 };

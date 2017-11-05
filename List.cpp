@@ -59,23 +59,20 @@ void List::iterate(int (*f)(void *)) {
 	s_list	*iterator = list, *del;
 
 	while (iterator && iterator->data) {
-		if (f(iterator->data)) {
-			iterator = iterator->next;
-		}
-		else {
-			iterator->data = nullptr;
+		if (!f(iterator->data)) {
 			del = iterator;
-			if (del == list) {
-				list = list->next;
-				if (list)
-					list->prev = nullptr;
-			}
-			else {
+			if (iterator == list)
+				list = iterator->next;
+			if (iterator->prev)
 				iterator->prev->next = iterator->next;
+			if (iterator->next)
 				iterator->next->prev = iterator->prev;
-			}
 			iterator = iterator->next;
+			del->data = nullptr;
 			delete(del);
 		}
+		else
+			iterator = iterator->next;
 	}
+//	if ()
 }

@@ -1,37 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   StarObject.hpp                                     :+:      :+:    :+:   */
+/*   ObjectSpawner.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/04 18:08:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/04 18:08:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/05 12:28:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/05 12:28:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef STAROBJECT_HPP
-# define STAROBJECT_HPP
+#ifndef OBJECTSPAWNER_HPP
+# define OBJECTSPAWNER_HPP
 
-#include "AObject.hpp"
-#include "List.hpp"
+# include "StarObject.hpp"
+# include "Asteroid.hpp"
+# include "List.hpp"
 
-class StarObject :
-		public AObject {
+class ObjectSpawner {
 
 public:
-	StarObject();
+	ObjectSpawner();
 
-	StarObject(StarObject const &);
+	ObjectSpawner(ObjectSpawner const &copy);
 
-	virtual ~StarObject();
+	~ObjectSpawner();
 
-	StarObject &operator=(StarObject const &);
+	ObjectSpawner &operator=(ObjectSpawner const &assign);
+
+	void		update();
 
 private:
-	int		fall();
+	static int	clean(void *);
 
+	void		updateStars();
+
+	void		updateAsteroids();
+
+	List*		stars;
+	List*		asteroids;
 };
 
 

@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   StarObject.hpp                                     :+:      :+:    :+:   */
+/*   ObjectDamageable.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/04 18:08:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/04 18:08:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/05 12:42:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/05 12:42:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef STAROBJECT_HPP
-# define STAROBJECT_HPP
+#ifndef OBJECTDAMAGEABLE_HPP
+# define OBJECTDAMAGEABLE_HPP
 
-#include "AObject.hpp"
-#include "List.hpp"
+# include "AObject.hpp"
 
-class StarObject :
-		public AObject {
+class ObjectDamageable :
+		virtual public AObject {
 
 public:
-	StarObject();
+	ObjectDamageable();
 
-	StarObject(StarObject const &);
+	ObjectDamageable(char, int, int, int, int);
 
-	virtual ~StarObject();
+	ObjectDamageable(ObjectDamageable const &copy);
 
-	StarObject &operator=(StarObject const &);
+	virtual ~ObjectDamageable();
 
-private:
-	int		fall();
+	ObjectDamageable &operator=(ObjectDamageable const &assign);
+
+	int getHp() const;
+
+	void		getDamage(int dmg);
+
+protected:
+	int		hp;
+	int		dmg;
 
 };
 

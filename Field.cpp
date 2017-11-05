@@ -12,10 +12,10 @@
 
 #include "Field.hpp"
 
-Field::Field()
-		: h(H), w(W), f(new char*[h]), win(newwin(Field::h, Field::w, 0, 0)) {
+Field::Field() : h(H), w(W), f(new AObject **[h]),
+				 win(newwin(Field::h, Field::w, 0, 0)) {
 	for (int i = 0; i < h; i++)
-		f[i] = new char[w];
+		f[i] = new AObject *[w];
 	wborder(win, '|', '|', 0, 0, 0, 0, 0, 0);
 	wrefresh(win);
 }
@@ -38,14 +38,28 @@ int Field::getW() {
 
 void Field::erase(const int y, const int x) {
 	mvwaddch(this->win, y, x, Field::empty);
-	wrefresh(this->win);
+	f[y][x] = nullptr;
+//	wrefresh(this->win);
 }
 
-void Field::update(const int y, const int x, const int sym) {
+void Field::update(const int y, const int x, const int sym, AObject *obj) {
 	mvwaddch(this->win, y, x, sym);
-	wrefresh(this->win);
+	f[y][x] = obj;
+//	wrefresh(this->win);
 }
 
 WINDOW *Field::getWin() const {
 	return win;
+}
+
+bool Field::isEmpty(int y, int x) {
+	return !f[y][x];
+}
+
+AObject *Field::getObject(int y, int x) {
+	return f[y][x];
+}
+
+void Field::storeObject(int y, int x, AObject *obj) {
+	f[y][x] = obj;
 }

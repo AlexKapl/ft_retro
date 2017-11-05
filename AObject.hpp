@@ -20,6 +20,8 @@
 class AObject {
 
 public:
+	enum type_e {REGULAR = 1, ASTEROID, SHIP};
+
 	AObject();
 
 	AObject(char, int, int);
@@ -32,10 +34,15 @@ public:
 
 	static void setF(Field *f);
 
+	type_e getType() const;
+
+	virtual int		fall() = 0;
+
 protected:
 	char sym;
 	int y;
 	int x;
+	type_e type;
 
 	static Field *f;
 };

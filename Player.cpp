@@ -12,11 +12,15 @@
 
 #include "Player.hpp"
 
-Player::Player() : AObject('A', 1, 1) {}
+Player::Player() : ObjectDamageable('A', H - 3, W / 2, 50, 10), pause(true) {
+	type = SHIP;
+}
 
-Player::Player(Player const &copy) : AObject(copy) {}
+Player::Player(Player const &copy) : ObjectDamageable(copy) {}
 
-Player::~Player() {}
+Player::~Player() {
+	ObjectDamageable::~ObjectDamageable();
+}
 
 Player &Player::operator=(Player const &) {
 	return *this;
@@ -28,7 +32,7 @@ void Player::move(int x, int y) {
 		this->y = y;
 	if (x > 0 && x < f->getW() - 1)
 		this->x = x;
-	f->update(this->y, this->x, this->sym);
+	f->update(this->y, this->x, this->sym, this);
 }
 
 void Player::keyHook(int key) {
@@ -46,11 +50,20 @@ void Player::keyHook(int key) {
 			this->move(this->x, this->y - 1);
 			break;
 		case ATTACK:
-			nodelay(stdscr, false);
 			break;
 		default:
 //			wprintw(f->getWin(), "%d", key);
 //			wrefresh(f->getWin());
 			break;
 	}
+}
+
+bool Player::setPause(int key) {
+	if (key == ATTACK)
+		pause = !pause;
+	return pause;
+}
+
+int Player::fall() {
+	return 0;
 }

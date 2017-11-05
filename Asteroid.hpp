@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_retro.h                                         :+:      :+:    :+:   */
+/*   Asteroid.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/04 15:31:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/04 15:31:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/05 13:35:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/05 13:35:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_RETRO_H
-#define FT_RETRO_H
 
-# include <ncurses.h>
-# include <iostream>
-# include <unistd.h>
+#ifndef ASTEROID_HPP
+# define ASTEROID_HPP
 
-#define LEFT 260
-#define RIGHT 261
-#define DOWN 259
-#define UP 258
-#define ATTACK 32
-#define H 60
-#define W 120
-#define STAR 5
+#include "ObjectDamageable.hpp"
 
-#define RANDY ((rand() % (H / 2)) + 1)
-#define RANDX ((rand() % (W - 2)) + 1)
+class Asteroid :
+		public ObjectDamageable {
 
-class	AObject;
-class	Field;
+public:
+	Asteroid();
+
+	Asteroid(Asteroid const &copy);
+
+	~Asteroid();
+
+	Asteroid &operator=(Asteroid const &assign);
+
+	virtual int		fall();
+
+private:
+
+};
+
 
 #endif
-
-///usleep() ± speed game

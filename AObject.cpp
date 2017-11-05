@@ -14,12 +14,13 @@
 
 Field* 	AObject::f = nullptr;
 
-AObject::AObject(char c, int y, int x) : sym(c), y(y), x(x) {
-	f->update(y, x, c);
+AObject::AObject(char c, int y, int x) : sym(c), y(y), x(x), type(REGULAR) {
+	f->update(y, x, c, this);
 }
 
-AObject::AObject(AObject const &copy) : sym(copy.sym), y(copy.y), x(copy.x) {
-	f->update(y, x, sym);
+AObject::AObject(AObject const &copy) :
+		sym(copy.sym), y(copy.y), x(copy.x), type(copy.type) {
+	f->update(y, x, sym, this);
 }
 
 AObject::~AObject() {
@@ -32,4 +33,10 @@ AObject &AObject::operator=(AObject const &) {
 
 void AObject::setF(Field *f) {
 	AObject::f = f;
+}
+
+AObject::AObject() : sym(0), y(0), x(0), type(REGULAR) {}
+
+AObject::type_e AObject::getType() const {
+	return type;
 }

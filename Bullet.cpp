@@ -37,3 +37,15 @@ int Bullet::fall() {
 	}
 	return (0);
 }
+
+void Bullet::setBullet(int type, int y, int x, int dmg) {
+	this->sym = type;
+	this->y = y;
+	this->x = x;
+	this->dmg = dmg;
+	this->hp = 1;
+}
+
+void Bullet::freeBullet() {
+	this->hp = -1;
+}

@@ -13,7 +13,11 @@ public:
 	Bullet 	&operator = (Bullet const &);
 
 	virtual int		fall();
-	
+
+	void			setBullet(int type, int y, int x, int dmg);
+
+	void			freeBullet();
+
 private:
 
 };

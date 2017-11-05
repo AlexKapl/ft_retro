@@ -44,7 +44,7 @@ void ObjectSpawner::spawnBullet(int type, int y, int x, int dmg) {
 	if (bullet < bulletCount)
 		while (i < bulletCount) {
 			if (bullets[i]->getHp() == -1) {
-				bullets[i]->setBullet();
+				bullets[i]->setBullet(type, y, x, dmg);
 				bullet++;
 				return;
 			}
@@ -110,9 +110,8 @@ void ObjectSpawner::updateEnemies() {
 
 void ObjectSpawner::updateBullets() {
 	for (int i = 0; i < bulletCount; i++) {
-		if (bullets[i] && !bullets[i]->fall()) {
-			delete (bullets[i]);
-			bullets[i] = nullptr;
+		if (bullets[i]->getHp() > 0 && !bullets[i]->fall()) {
+			bullets[i]->freeBullet();
 			bullet--;
 		}
 	}

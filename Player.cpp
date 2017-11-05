@@ -12,14 +12,13 @@
 
 #include "Player.hpp"
 
-Player::Player() : ObjectDamageable('A', H - 3, W / 2, 50, 10), pause(true) {
+Player::Player() : AObject('A', H - 3, W / 2, 50, 10), pause(true) {
 	type = SHIP;
 }
 
-Player::Player(Player const &copy) : ObjectDamageable(copy) {}
+Player::Player(Player const &copy) : AObject(copy) {}
 
 Player::~Player() {
-	ObjectDamageable::~ObjectDamageable();
 }
 
 Player &Player::operator=(Player const &) {
@@ -61,6 +60,12 @@ void Player::keyHook(int key) {
 bool Player::setPause(int key) {
 	if (key == ATTACK)
 		pause = !pause;
+	if (!hp) {
+		wprintw(f->getWin(), "GAME OVER");
+		while (1);
+		endwin();
+		exit(1);
+	}
 	return pause;
 }
 

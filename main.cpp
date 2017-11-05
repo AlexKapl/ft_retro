@@ -12,7 +12,6 @@
 
 #include "ft_retro.h"
 #include "Player.hpp"
-#include "StarObject.hpp"
 #include "ObjectSpawner.hpp"
 
 static void init_ncurses() {
@@ -31,17 +30,15 @@ static void game_loop() {
 	AObject::setF(f);
 	Player *player = new Player();
 	ObjectSpawner * spawner = new ObjectSpawner();
-	int key, i = 0;
+	int key;
 
 	do {
 		key = getch();
 		if (player->setPause(key)) {
 			player->keyHook(key);
 			spawner->update();
-//			StarObject::update();
 			wrefresh(f->getWin());
 			usleep(10000);
-			i++;
 		}
 	} while (key != 'q');
 }

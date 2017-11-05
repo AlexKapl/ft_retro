@@ -15,7 +15,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 HEADER = ft_retro.h
 
-OBJ = main.o Player.o AObject.o Field.o List.o StarObject.o ObjectDamageable.o\
+OBJ = main.o Player.o AObject.o Field.o List.o StarObject.o\
 	  ObjectSpawner.o Asteroid.o
 
 NAME = ft_retro

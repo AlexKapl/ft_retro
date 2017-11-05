@@ -14,10 +14,10 @@
 #ifndef ASTEROID_HPP
 # define ASTEROID_HPP
 
-#include "ObjectDamageable.hpp"
+#include "AObject.hpp"
 
 class Asteroid :
-		public ObjectDamageable {
+		public AObject{
 
 public:
 	Asteroid();

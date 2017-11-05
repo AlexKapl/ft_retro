@@ -14,7 +14,8 @@
 
 Field* 	AObject::f = nullptr;
 
-AObject::AObject(char c, int y, int x) : sym(c), y(y), x(x), type(REGULAR) {
+AObject::AObject(char c, int y, int x, int hp, int dmg) :
+		sym(c), y(y), x(x), hp(hp), dmg(dmg), type(REGULAR) {
 	f->update(y, x, c, this);
 }
 
@@ -39,4 +40,14 @@ AObject::AObject() : sym(0), y(0), x(0), type(REGULAR) {}
 
 AObject::type_e AObject::getType() const {
 	return type;
+}
+
+int AObject::getHp() const {
+	return hp;
+}
+
+void AObject::getDamage(int dmg) {
+	this->hp -= dmg;
+	if (this->hp < 0)
+		this->hp = 0;
 }

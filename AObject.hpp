@@ -24,7 +24,7 @@ public:
 
 	AObject();
 
-	AObject(char, int, int);
+	AObject(char, int, int, int, int);
 
 	AObject(AObject const &copy);
 
@@ -34,14 +34,20 @@ public:
 
 	static void setF(Field *f);
 
+	int getHp() const;
+
 	type_e getType() const;
 
 	virtual int		fall() = 0;
 
+	virtual void	getDamage(int dmg);
+
 protected:
-	char sym;
-	int y;
-	int x;
+	char	sym;
+	int		y;
+	int		x;
+	int		hp;
+	int		dmg;
 	type_e type;
 
 	static Field *f;

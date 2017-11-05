@@ -20,7 +20,11 @@ List::s_list::s_list(void *data) :
 List::s_list::s_list(void *data, List::s_list * p) :
 	data(data), next(nullptr), prev(p) {}
 
-List::s_list::~s_list() {}
+List::s_list::~s_list() {
+	data = nullptr;
+	prev = nullptr;
+	next = nullptr;
+}
 
 List::List() : list(new s_list()), start(list), end(list) {}
 
@@ -68,11 +72,9 @@ void List::iterate(int (*f)(void *)) {
 			if (iterator->next)
 				iterator->next->prev = iterator->prev;
 			iterator = iterator->next;
-			del->data = nullptr;
 			delete(del);
 		}
 		else
 			iterator = iterator->next;
 	}
-//	if ()
 }

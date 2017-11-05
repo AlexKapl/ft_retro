@@ -40,9 +40,7 @@ void ObjectSpawner::updateStars() {
 
 void ObjectSpawner::updateAsteroids() {
 	asteroids->iterate(&ObjectSpawner::clean);
-//	for (int i = 0; i < STAR; i++) {
 	asteroids->push(new Asteroid());
-//	}
 }
 
 int ObjectSpawner::clean(void * data) {

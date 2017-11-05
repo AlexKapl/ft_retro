@@ -13,13 +13,14 @@
 #include "Asteroid.hpp"
 
 Asteroid::Asteroid() :
-		ObjectDamageable('*', RANDY, RANDY, 1, 1) {}
+		AObject('*', RANDY, RANDX, 1, 1) {
+	type = ASTEROID;
+}
 
 Asteroid::Asteroid(Asteroid const &copy) :
-		ObjectDamageable(copy) {}
+		AObject(copy) {}
 
 Asteroid::~Asteroid() {
-	ObjectDamageable::~ObjectDamageable();
 }
 
 Asteroid &Asteroid::operator=(Asteroid const &) {
@@ -28,7 +29,6 @@ Asteroid &Asteroid::operator=(Asteroid const &) {
 
 int Asteroid::fall() {
 	AObject * obj;
-	ObjectDamageable *damageable;
 
 	f->erase(y, x);
 	this->y++;
@@ -40,8 +40,7 @@ int Asteroid::fall() {
 		}
 		else {
 			if (obj->getType() > REGULAR) {
-				damageable = dynamic_cast<ObjectDamageable *>(obj);
-				damageable->getDamage(this->dmg);
+				obj->getDamage(this->dmg);
 			}
 			else {
 				f->update(y, x, sym, this);

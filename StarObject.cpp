@@ -12,18 +12,11 @@
 
 #include "StarObject.hpp"
 
-StarObject::StarObject() :	AObject('.', RANDY, RANDX) {
-//	StarObject::count++;
-}
+StarObject::StarObject() :	AObject('.', RANDY, RANDX, 0, 0) {}
 
-StarObject::StarObject(StarObject const &copy) : AObject(copy) {
-//	StarObject::count++;
-}
+StarObject::StarObject(StarObject const &copy) : AObject(copy) {}
 
-StarObject::~StarObject() {
-//	StarObject::count--;
-	AObject::~AObject();
-}
+StarObject::~StarObject() {}
 
 StarObject &StarObject::operator=(StarObject const &) {
 	return *this;

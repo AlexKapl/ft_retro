@@ -14,10 +14,10 @@
 #ifndef PLAYER_HPP
 # define PLAYER_HPP
 
-# include "ObjectDamageable.hpp"
+# include "AObject.hpp"
 
 class Player :
-		virtual public ObjectDamageable{
+		virtual public AObject{
 
 public:
 	Player();

@@ -35,6 +35,8 @@ public:
 
 	virtual int		fall();
 
+	virtual void	getDamage(int dmg);
+
 private:
 	void move(int x, int y);
 

@@ -33,6 +33,7 @@ int Bullet::fall() {
 		}
 		else {
 			obj->getDamage(this->dmg);
+			f->setScore(obj->getSp());
 		}
 	}
 	return (0);

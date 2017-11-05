@@ -1,23 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   IElement.hpp                                       :+:      :+:    :+:   */
+/*   PowerUp.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/04 16:16:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/04 16:16:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/05 22:12:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/05 22:12:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef IELEMENT_HPP
-# define IELEMENT_HPP
+#ifndef POWERUP_HPP
+# define POWERUP_HPP
 
-class IElement {
+
+#include "AObject.hpp"
+
+class PowerUp :
+		public AObject {
 
 public:
-	virtual ~IElement() {};
+	PowerUp();
+
+	PowerUp(PowerUp const &copy);
+
+	~PowerUp();
+
+	PowerUp &operator=(PowerUp const &assign);
+
+	virtual int		fall();
+
+	virtual void update();
 
 private:
 

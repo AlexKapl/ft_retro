@@ -13,13 +13,15 @@
 #include "ObjectSpawner.hpp"
 
 ObjectSpawner::ObjectSpawner() :
-		stars(new StarObject *[80]),
-		asteroids(new Asteroid *[15]),
-		enemies(new Enemy *[15]),
+		stars(new StarObject *[40]),
+		asteroids(new Asteroid *[10]),
+		enemies(new Enemy *[10]),
 		bullets(new Bullet *[20]),
+		powerUp(new PowerUp),
 		starCount(50), asterCount(10),
 		enemyCount(10), bulletCount(20), bullet(0),
-		starClock(clock()), bulletClock(starClock) {
+		starClock(clock()), enemyClock(starClock),
+		bulletClock(starClock) {
 	for (int i = 0; i < bulletCount; ++i) {
 		bullets[i] = new Bullet();
 	}
@@ -60,14 +62,16 @@ void ObjectSpawner::spawnBullet(int type, int y, int x, int dmg) {
 }
 
 void ObjectSpawner::update() {
-	float diff = (static_cast<float>((clock() - starClock)) / CLOCKS_PER_SEC *
+	float diff = (static_cast<float>((clock() - enemyClock)) / CLOCKS_PER_SEC *
 				  10000);
 
 	if ((static_cast<float>((clock() - bulletClock))
 		 / CLOCKS_PER_SEC * 10000) > 500)
 		updateBullets();
-	if (diff > 800) {
+	if ((static_cast<float>((clock() - starClock))
+		 / CLOCKS_PER_SEC * 10000) > 800)
 		updateStars();
+	if (diff > 1000) {
 		updateAsteroids();
 		updateEnemies();
 	}
@@ -82,6 +86,12 @@ void ObjectSpawner::updateStars() {
 			stars[i]->erase();
 		}
 	}
+	if (powerUp->getDmg() == -1) {
+		powerUp->update();
+	}
+	else if (!powerUp->fall())
+		powerUp->erase();
+	starClock = clock();
 }
 
 void ObjectSpawner::updateAsteroids() {
@@ -96,7 +106,6 @@ void ObjectSpawner::updateAsteroids() {
 			asteroids[i]->erase();
 		}
 	}
-	starClock = clock();
 }
 
 void ObjectSpawner::updateEnemies() {
@@ -111,6 +120,7 @@ void ObjectSpawner::updateEnemies() {
 			enemies[i]->erase();
 		}
 	}
+	enemyClock = clock();
 }
 
 void ObjectSpawner::updateBullets() {

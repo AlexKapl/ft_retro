@@ -26,6 +26,8 @@ static void init_ncurses() {
 	init_pair(2, COLOR_RED, COLOR_BLACK);
 	init_pair(3, COLOR_BLUE, COLOR_BLACK);
 	init_pair(4, COLOR_CYAN, COLOR_BLACK);
+	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(6, COLOR_YELLOW, COLOR_BLACK);
 }
 
 static void game_loop() {
@@ -37,11 +39,10 @@ static void game_loop() {
 
 	do {
 		key = getch();
-//		key = (rand() % 2) ? ATTACK : (rand() % 2 ? KEY_LEFT : KEY_RIGHT);
 		if (player->setPause(key)) {
 			player->keyHook(key, spawner);
 			spawner->update();
-			f->updateInfo();
+			f->updateInfo(player->getHp());
 			wrefresh(f->getWin());
 		}
 	} while (key != 'q');

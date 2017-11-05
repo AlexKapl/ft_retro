@@ -12,8 +12,9 @@
 
 #include "Player.hpp"
 
-Player::Player() : AObject('A', H - 3, W / 2, 1, 10),
+Player::Player() : AObject('A' + COLOR_PAIR(1), H - 3, W / 2, 2, 10),
 				   pause(true), bullet('^' + COLOR_PAIR(3)) {
+	sp = 0;
 	type = SHIP;
 }
 
@@ -28,14 +29,14 @@ Player &Player::operator=(Player const &) {
 
 void Player::move(int x, int y) {
 	f->erase(this->y, this->x);
-	if (y > 0 && y < f->getH() - 1)
+	if (y > 0 && y < f->getH() - 2)
 		this->y = y;
 	if (x > 0 && x < f->getW() - 1)
 		this->x = x;
 	f->update(this->y, this->x, this->sym, this);
 }
 
-void Player::keyHook(int key, ObjectSpawner * spawner) {
+void Player::keyHook(int key, ObjectSpawner *spawner) {
 	switch (key) {
 		case LEFT:
 			this->move(this->x - 1, this->y);
@@ -53,6 +54,7 @@ void Player::keyHook(int key, ObjectSpawner * spawner) {
 			spawner->spawnBullet(bullet, y, x, dmg);
 			break;
 		default:
+			this->move(this->x, this->y);
 			break;
 	}
 }
@@ -63,7 +65,8 @@ bool Player::setPause(int key) {
 		nodelay(stdscr, pause);
 	}
 	if (!hp) {
-		mvwprintw(f->getInfo(), 5, W / 2, "GAME OVER");
+		wattron(f->getInfo(), COLOR_PAIR(2));
+		mvwprintw(f->getInfo(), 5, W / 2 - 5, "GAME OVER");
 		wrefresh(f->getInfo());
 		nodelay(stdscr, false);
 		while (getch() != 'q');
@@ -75,4 +78,17 @@ bool Player::setPause(int key) {
 
 int Player::fall() {
 	return 0;
+}
+
+void Player::getDamage(int dmg) {
+	if (dmg > 32 && dmg < 40) {
+		this->bullet = dmg + COLOR_PAIR(rand() % 3 + 3);
+		if (++this->hp > 5)
+			this->hp = 5;
+	}
+	else {
+		this->hp -= dmg;
+		if (this->hp < 0)
+			this->hp = 0;
+	}
 }

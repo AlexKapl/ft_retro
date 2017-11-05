@@ -15,15 +15,15 @@
 Field *AObject::f = nullptr;
 
 AObject::AObject() :
-		sym(0), y(0), x(0), hp(0), dmg(0), type(BULLET) {}
+		sym(0), y(0), x(0), hp(0), dmg(0), sp(0), type(BULLET) {}
 
 AObject::AObject(int c, int y, int x, int dmg) :
-		sym(c), y(y), x(x), hp(1), dmg(dmg), type(BULLET) {
+		sym(c), y(y), x(x), hp(1), dmg(dmg), sp(10), type(BULLET) {
 	f->update(y, x, c, this);
 }
 
 AObject::AObject(int c, int y, int x, int hp, int dmg) :
-		sym(c), y(y), x(x), hp(hp), dmg(dmg), type(REGULAR) {
+		sym(c), y(y), x(x), hp(hp), dmg(dmg), sp(10), type(REGULAR) {
 	while (!f->isEmpty(this->y, this->x)) {
 		this->x = RANDX;
 		this->y = RANDY;
@@ -82,4 +82,8 @@ void AObject::update() {
 
 int AObject::getDmg() const {
 	return dmg;
+}
+
+int AObject::getSp() const {
+	return sp;
 }

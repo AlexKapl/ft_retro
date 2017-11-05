@@ -19,6 +19,7 @@
 # include "List.hpp"
 # include "Enemy.hpp"
 # include "Bullet.hpp"
+#include "PowerUp.hpp"
 
 class ObjectSpawner {
 
@@ -48,12 +49,14 @@ private:
 	Asteroid**		asteroids;
 	Enemy**			enemies;
 	Bullet**		bullets;
+	PowerUp*		powerUp;
 	int				starCount;
 	int				asterCount;
 	int				enemyCount;
 	int				bulletCount;
 	int				bullet;
 	clock_t			starClock;
+	clock_t			enemyClock;
 	clock_t			bulletClock;
 };
 

@@ -29,6 +29,8 @@ public:
 
 	virtual int		fall();
 
+	virtual void update();
+
 private:
 
 };

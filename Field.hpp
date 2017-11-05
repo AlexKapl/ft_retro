@@ -31,7 +31,7 @@ public:
 
 	void		update(const int y, const int x, const int sym, AObject * obj);
 
-	void		updateInfo();
+	void		updateInfo(int life);
 
 	int getW();
 
@@ -45,6 +45,8 @@ public:
 
 	WINDOW *getInfo() const;
 
+	void setScore(int score);
+
 private:
 	const int	h;
 	const int	w;
@@ -52,6 +54,7 @@ private:
 	WINDOW		*win;
 	WINDOW		*info;
 	clock_t		start;
+	int			score;
 	static const int	empty = ' ';
 };
 

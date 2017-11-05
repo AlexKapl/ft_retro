@@ -38,6 +38,8 @@ public:
 
 	int getHp() const;
 
+	int getSp() const;
+
 	type_e getType() const;
 
 	void			erase();
@@ -56,6 +58,7 @@ protected:
 	int		x;
 	int		hp;
 	int		dmg;
+	int		sp;
 	type_e type;
 
 	static Field *f;

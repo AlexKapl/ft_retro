@@ -28,24 +28,18 @@ Asteroid &Asteroid::operator=(Asteroid const &) {
 }
 
 int Asteroid::fall() {
-	AObject * obj;
+	AObject *obj;
 
 	f->erase(y, x);
 	this->y++;
 	if (y < H - 2) {
 		obj = f->getObject(y, x);
-		if (obj == nullptr) {
+		if (obj == nullptr || obj->getType() == REGULAR) {
 			f->update(y, x, sym, this);
 			return (1);
 		}
 		else {
-			if (obj->getType() > REGULAR) {
-				obj->getDamage(this->dmg);
-			}
-			else {
-				f->update(y, x, sym, this);
-				return (1);
-			}
+			obj->getDamage(this->dmg);
 		}
 	}
 	return (0);

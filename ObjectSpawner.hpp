@@ -32,14 +32,16 @@ public:
 	void		update();
 
 private:
-	static int	clean(void *);
-
 	void		updateStars();
 
 	void		updateAsteroids();
 
-	List*		stars;
-	List*		asteroids;
+	StarObject**	stars;
+	Asteroid**	asteroids;
+	int				starCount;
+	int				asterCount;
+	clock_t			starClock;
+	clock_t			asterClock;
 };
 
 

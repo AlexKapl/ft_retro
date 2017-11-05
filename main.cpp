@@ -38,7 +38,7 @@ static void game_loop() {
 			player->keyHook(key);
 			spawner->update();
 			wrefresh(f->getWin());
-			usleep(10000);
+			usleep(20000);
 		}
 	} while (key != 'q');
 }

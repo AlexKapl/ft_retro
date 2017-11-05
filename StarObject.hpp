@@ -29,8 +29,9 @@ public:
 
 	StarObject &operator=(StarObject const &);
 
-private:
 	int		fall();
+
+private:
 
 };
 

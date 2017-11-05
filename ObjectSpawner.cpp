@@ -12,14 +12,17 @@
 
 #include "ObjectSpawner.hpp"
 
-ObjectSpawner::ObjectSpawner() : stars(new List), asteroids(new List) {}
+ObjectSpawner::ObjectSpawner() :
+		stars(new StarObject *[50]),
+		asteroids(new Asteroid *[10]),
+		starCount(50), asterCount(10),
+		starClock(clock()), asterClock(clock()) {}
 
-ObjectSpawner::ObjectSpawner(ObjectSpawner const &obj) :
-		stars(new List(obj.stars)) {}
+ObjectSpawner::ObjectSpawner(ObjectSpawner const &) {}
 
 ObjectSpawner::~ObjectSpawner() {
-	delete(stars);
-	delete(asteroids);
+	delete[](stars);
+	delete[](asteroids);
 }
 
 ObjectSpawner &ObjectSpawner::operator=(ObjectSpawner const &) {
@@ -27,30 +30,34 @@ ObjectSpawner &ObjectSpawner::operator=(ObjectSpawner const &) {
 }
 
 void ObjectSpawner::update() {
-	updateStars();
-	updateAsteroids();
+	static clock_t	timestamp = clock();
+	float	diff;
+
+	diff = (static_cast<float>((clock () - timestamp )) / CLOCKS_PER_SEC * 10000);
+	if (diff > 5)
+		updateStars();
+	if (diff > 5)
+		updateAsteroids();
 }
 
 void ObjectSpawner::updateStars() {
-	stars->iterate(&ObjectSpawner::clean);
-	for (int i = 0; i < STAR; i++) {
-		stars->push(new StarObject());
+	for (int i = 0; i < starCount; i++) {
+		if (!stars[i])
+			stars[i] = new StarObject();
+		if (!stars[i]->fall()) {
+			delete (stars[i]);
+			stars[i] = nullptr;
+		}
 	}
 }
 
 void ObjectSpawner::updateAsteroids() {
-	asteroids->iterate(&ObjectSpawner::clean);
-	asteroids->push(new Asteroid());
-}
-
-int ObjectSpawner::clean(void * data) {
-	AObject *obj = static_cast<AObject *>(data);
-
-	if (obj->fall()) {
-		return (1);
-	}
-	else {
-		delete (obj);
-		return (0);
+	for (int i = 0; i < asterCount; i++) {
+		if (!asteroids[i])
+			asteroids[i] = new Asteroid();
+		if (!asteroids[i]->fall()) {
+			delete (asteroids[i]);
+			asteroids[i] = nullptr;
+		}
 	}
 }

@@ -6,7 +6,7 @@
 #    By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 10:34:18 by akaplyar          #+#    #+#              #
-#    Updated: 2017/11/05 14:32:51 by akaplyar         ###   ########.fr        #
+#    Updated: 2017/11/05 19:05:11 by akaplyar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror
 HEADER = ft_retro.h
 
 OBJ = main.o Player.o AObject.o Field.o List.o StarObject.o\
-	  ObjectSpawner.o Asteroid.o
+	  ObjectSpawner.o Asteroid.o Enemy.o Bullet.o
 
 NAME = ft_retro
 

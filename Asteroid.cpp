@@ -30,7 +30,8 @@ Asteroid &Asteroid::operator=(Asteroid const &) {
 int Asteroid::fall() {
 	AObject *obj;
 
-	f->erase(y, x);
+	if (f->getObject(y, x) == this)
+		f->erase(y, x);
 	this->y++;
 	if (y < H - 2) {
 		obj = f->getObject(y, x);

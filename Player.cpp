@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "Player.hpp"
-#include "Bullet.hpp"
 
-Player::Player() : AObject('A', H - 3, W / 2, 50, 10), pause(true), bullet(0) {
+Player::Player() : AObject('A', H - 3, W / 2, 1, 10),
+				   pause(true), bullet('^' + COLOR_PAIR(3)) {
 	type = SHIP;
 }
 
@@ -35,7 +35,7 @@ void Player::move(int x, int y) {
 	f->update(this->y, this->x, this->sym, this);
 }
 
-void Player::keyHook(int key) {
+void Player::keyHook(int key, ObjectSpawner * spawner) {
 	switch (key) {
 		case LEFT:
 			this->move(this->x - 1, this->y);
@@ -50,7 +50,7 @@ void Player::keyHook(int key) {
 			this->move(this->x, this->y - 1);
 			break;
 		case ATTACK:
-			Bullet::Bullet(bullet, x, y, dmg);
+			spawner->spawnBullet(bullet, y, x, dmg);
 			break;
 		default:
 			//wprintw(f->getWin(), "%d", key);
@@ -60,10 +60,11 @@ void Player::keyHook(int key) {
 }
 
 bool Player::setPause(int key) {
-	if (key == ATTACK)
+	if (key == PAUSE)
 		pause = !pause;
 	if (!hp) {
 		wprintw(f->getWin(), "GAME OVER");
+		wrefresh(f->getWin());
 		while (1);
 		endwin();
 		exit(1);

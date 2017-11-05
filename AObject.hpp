@@ -26,6 +26,8 @@ public:
 
 	AObject(int, int, int, int, int);
 
+	AObject(int, int, int, int);
+
 	AObject(AObject const &copy);
 
 	virtual ~AObject();

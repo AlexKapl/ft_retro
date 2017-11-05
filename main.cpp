@@ -12,7 +12,6 @@
 
 #include "ft_retro.h"
 #include "Player.hpp"
-#include "ObjectSpawner.hpp"
 
 static void init_ncurses() {
 	initscr();
@@ -25,6 +24,8 @@ static void init_ncurses() {
 	start_color();
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	init_pair(2, COLOR_RED, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_CYAN, COLOR_BLACK);
 }
 
 static void game_loop() {
@@ -37,7 +38,7 @@ static void game_loop() {
 	do {
 		key = getch();
 		if (player->setPause(key)) {
-			player->keyHook(key);
+			player->keyHook(key, spawner);
 			spawner->update();
 			wrefresh(f->getWin());
 		}

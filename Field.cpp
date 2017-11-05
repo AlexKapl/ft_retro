@@ -41,15 +41,17 @@ int Field::getW() {
 }
 
 void Field::erase(const int y, const int x) {
-	mvwaddch(this->win, y, x, Field::empty);
-	f[y][x] = nullptr;
-//	wrefresh(this->win);
+	if (y > 0 && y < h && x > 0 && x < w){
+		mvwaddch(this->win, y, x, Field::empty);
+		f[y][x] = nullptr;
+	}
 }
 
 void Field::update(const int y, const int x, const int sym, AObject *obj) {
-	mvwaddch(this->win, y, x, sym);
-	f[y][x] = obj;
-//	wrefresh(this->win);
+	if (y > 0 && y < h && x > 0 && x < w) {
+		mvwaddch(this->win, y, x, sym);
+		f[y][x] = obj;
+	}
 }
 
 WINDOW *Field::getWin() const {
@@ -57,11 +59,18 @@ WINDOW *Field::getWin() const {
 }
 
 bool Field::isEmpty(int y, int x) {
-	return !f[y][x];
+	if (y > 0 && y < h && x > 0 && x < w) {
+		return !f[y][x];
+	}
+	else return false;
 }
 
 AObject *Field::getObject(int y, int x) {
-	return f[y][x];
+	if (y > 0 && y < h && x > 0 && x < w) {
+		return f[y][x];
+	}
+	else
+		return nullptr;
 }
 
 void Field::storeObject(int y, int x, AObject *obj) {

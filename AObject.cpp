@@ -14,6 +14,11 @@
 
 Field* 	AObject::f = nullptr;
 
+AObject::AObject(int c, int y, int x, int dmg) :
+		sym(c), y(y), x(x), hp(1), dmg(dmg), type(BULLET) {
+	f->update(y, x, c, this);
+}
+
 AObject::AObject(int c, int y, int x, int hp, int dmg) :
 		sym(c), y(y), x(x), hp(hp), dmg(dmg), type(REGULAR) {
 	while (!f->isEmpty(this->y, this->x)) {

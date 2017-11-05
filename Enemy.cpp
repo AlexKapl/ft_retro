@@ -12,7 +12,7 @@
 
 #include "Enemy.hpp"
 
-Enemy::Enemy() : AObject('X' + COLOR_PAIR(2), RANDY /2, RANDX, 1, 10) {
+Enemy::Enemy() : AObject('X' + COLOR_PAIR(2), RANDY, RANDX, 1, 10) {
 	type = SHIP;
 }
 

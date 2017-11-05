@@ -15,6 +15,7 @@
 # define PLAYER_HPP
 
 # include "AObject.hpp"
+# include "ObjectSpawner.hpp"
 
 class Player :
 		virtual public AObject{
@@ -28,7 +29,7 @@ public:
 
 	Player &operator=(Player const &assign);
 
-	void keyHook(int key);
+	void keyHook(int key, ObjectSpawner *);
 
 	bool setPause(int key);
 

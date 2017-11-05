@@ -18,6 +18,7 @@
 # include "Asteroid.hpp"
 # include "List.hpp"
 # include "Enemy.hpp"
+# include "Bullet.hpp"
 
 class ObjectSpawner {
 
@@ -32,17 +33,28 @@ public:
 
 	void		update();
 
+	void		spawnBullet(int type, int x, int y, int dmg);
+
 private:
 	void		updateStars();
 
 	void		updateAsteroids();
 
+	void		updateEnemies();
+
+	void		updateBullets();
+
 	StarObject**	stars;
 	Asteroid**		asteroids;
 	Enemy**			enemies;
+	Bullet**		bullets;
 	int				starCount;
 	int				asterCount;
+	int				enemyCount;
+	int				bulletCount;
+	int				bullet;
 	clock_t			starClock;
+	clock_t			bulletClock;
 };
 
 

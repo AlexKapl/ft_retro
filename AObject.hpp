@@ -14,6 +14,7 @@
 #ifndef AOBJECT_HPP
 # define AOBJECT_HPP
 
+# include "ft_retro.h"
 # include "Field.hpp"
 
 class AObject {
@@ -21,7 +22,7 @@ class AObject {
 public:
 	AObject();
 
-	AObject(Field *, char, int, int);
+	AObject(char, int, int);
 
 	AObject(AObject const &copy);
 
@@ -29,12 +30,14 @@ public:
 
 	AObject &operator=(AObject const &assign);
 
+	static void setF(Field *f);
+
 protected:
-	Field *f;
 	char sym;
 	int y;
 	int x;
 
+	static Field *f;
 };
 
 

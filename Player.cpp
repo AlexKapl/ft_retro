@@ -12,7 +12,7 @@
 
 #include "Player.hpp"
 
-Player::Player(Field *f) : AObject(f, 'A', 1, 1) {}
+Player::Player() : AObject('A', 1, 1) {}
 
 Player::Player(Player const &copy) : AObject(copy) {}
 
@@ -23,12 +23,12 @@ Player &Player::operator=(Player const &) {
 }
 
 void Player::move(int x, int y) {
-	this->f->erase(this->y, this->x);
+	f->erase(this->y, this->x);
 	if (y > 0 && y < f->getH() - 1)
 		this->y = y;
 	if (x > 0 && x < f->getW() - 1)
 		this->x = x;
-	this->f->update(this->y, this->x, this->sym);
+	f->update(this->y, this->x, this->sym);
 }
 
 void Player::keyHook(int key) {

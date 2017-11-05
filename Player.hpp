@@ -20,7 +20,7 @@ class Player :
 		public AObject {
 
 public:
-	explicit Player(Field *f);
+	Player();
 
 	Player(Player const &copy);
 

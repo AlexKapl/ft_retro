@@ -40,6 +40,7 @@ public:
 private:
 	const int	h;
 	const int	w;
+	char		**f;
 	WINDOW		*win;
 	static const int	empty = ' ';
 };

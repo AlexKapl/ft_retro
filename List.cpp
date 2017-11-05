@@ -12,22 +12,34 @@
 
 #include "List.hpp"
 
-List::List() :
-		data(nullptr), next(nullptr), prev(nullptr), start(this), end(this) {}
+List::s_list::s_list() : data(nullptr), next(nullptr), prev(nullptr) {}
 
-List::List(void *data) : data(data), next(nullptr), prev(nullptr),
-						 start(this), end(this) {}
+List::s_list::s_list(void *data) :
+		data(data), next(nullptr), prev(nullptr) {}
+
+List::s_list::s_list(void *data, List::s_list * p) :
+	data(data), next(nullptr), prev(p) {}
+
+List::s_list::~s_list() {}
+
+List::List() : list(new s_list()), start(list), end(list) {}
+
+List::List(void *data) : list(new s_list(data)), start(list), end(list) {}
 
 List::List(void *data, List *l) :
-		data(data), next(nullptr), prev(l), start(l->start), end(this) {}
+		list(new s_list(data, l->list)), start(l->start), end(list) {}
 
 List::List(List const &copy) :
-		data(copy.data), next(copy.next), prev(copy.prev),
-		start(copy.start), end(copy.end) {}
+		list(copy.list), start(copy.start), end(copy.end) {}
 
 List::~List() {
-	this->data = nullptr;
-	this->next = nullptr;
+	s_list	*del;
+
+	while (list) {
+		del = list;
+		list = list->next;
+		delete(del);
+	}
 }
 
 List &List::operator=(List const &) {
@@ -35,32 +47,35 @@ List &List::operator=(List const &) {
 }
 
 void List::push(void *data) {
-	List *list = this;
-
-	if (this->data == nullptr)
-		this->data = data;
+	if (this->list->data == nullptr)
+		this->list->data = data;
 	else {
-		while (list->next)
-			list = list->next;
-		list->next = new List(data, list);
-		this->end = list->next;
+		this->end->next = new s_list(data, this->end);
+		this->end = this->end->next;
 	}
 }
 
-void *List::pop() {
-	void *data;
-	List *list;
+void List::iterate(int (*f)(void *)) {
+	s_list	*iterator = list, *del;
 
-	if (this == end) {
-		data = this->data;
-		this->data = nullptr;
-		return (data);
-	}
-	else {
-		data = end->data;
-		list = end->prev;
-		delete (end);
-		end = list;
-		return (data);
+	while (iterator && iterator->data) {
+		if (f(iterator->data)) {
+			iterator = iterator->next;
+		}
+		else {
+			iterator->data = nullptr;
+			del = iterator;
+			if (del == list) {
+				list = list->next;
+				if (list)
+					list->prev = nullptr;
+			}
+			else {
+				iterator->prev->next = iterator->next;
+				iterator->next->prev = iterator->prev;
+			}
+			iterator = iterator->next;
+			delete(del);
+		}
 	}
 }

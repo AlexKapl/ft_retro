@@ -13,7 +13,9 @@
 #include "Field.hpp"
 
 Field::Field()
-		: h(H), w(W), win(newwin(Field::h, Field::w, 0, 0)) {
+		: h(H), w(W), f(new char*[h]), win(newwin(Field::h, Field::w, 0, 0)) {
+	for (int i = 0; i < h; i++)
+		f[i] = new char[w];
 	wborder(win, '|', '|', 0, 0, 0, 0, 0, 0);
 	wrefresh(win);
 }

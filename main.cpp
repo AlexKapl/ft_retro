@@ -27,13 +27,16 @@ static void init_ncurses() {
 
 static void game_loop() {
 	Field *f = new Field();
-	Player player(f);
+	AObject::setF(f);
+	Player player;
 	int key = 0;
+	int i = 0;
 
 	do {
 		key = getch();
 		player.keyHook(key);
-		StarObject::update(f);
+		StarObject::update();
+		i++;
 		usleep(10000);
 	} while (key != 'q');
 }

@@ -12,13 +12,13 @@
 
 #include "AObject.hpp"
 
-AObject::AObject(Field *f, char c, int y, int x) :
-		f(f), sym(c), y(y), x(x) {
+Field* 	AObject::f = nullptr;
+
+AObject::AObject(char c, int y, int x) : sym(c), y(y), x(x) {
 	f->update(y, x, c);
 }
 
-AObject::AObject(AObject const &copy) :
-		f(copy.f), sym(copy.sym), y(copy.y), x(copy.x) {
+AObject::AObject(AObject const &copy) : sym(copy.sym), y(copy.y), x(copy.x) {
 	f->update(y, x, sym);
 }
 
@@ -28,4 +28,8 @@ AObject::~AObject() {
 
 AObject &AObject::operator=(AObject const &) {
 	return *this;
+}
+
+void AObject::setF(Field *f) {
+	AObject::f = f;
 }

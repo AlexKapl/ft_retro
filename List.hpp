@@ -32,16 +32,27 @@ public:
 
 	List &operator=(List const &assign);
 
-	void*	pop();
-
 	void	push(void *data);
 
+	void	iterate(int (*f)(void *));
+
 private:
-	void		*data;
-	List		*next;
-	List		*prev;
-	List		*start;
-	List		*end;
+	struct		s_list{
+		void	*data;
+		s_list	*next;
+		s_list	*prev;
+
+		s_list();
+
+		explicit s_list(void *data);
+
+		s_list(void *data, s_list * p);
+
+		~s_list();
+	}			*list;
+
+	s_list		*start;
+	s_list		*end;
 };
 
 

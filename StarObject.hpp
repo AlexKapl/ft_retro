@@ -21,7 +21,7 @@ class StarObject :
 		public AObject {
 
 public:
-	explicit StarObject(Field *);
+	StarObject();
 
 	StarObject(StarObject const &);
 
@@ -31,16 +31,16 @@ public:
 
 	static int getCount();
 
-	static void	update(Field *f);
+	static void	update();
 
 private:
-	void	fall();
+	int		fall();
 
 	static List	*stack;
 
 	static int count;
 
-	static void	clean();
+	static int clean(void *);
 
 };
 

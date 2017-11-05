@@ -24,9 +24,7 @@
 #define ATTACK 32
 #define H 60
 #define W 120
-#define STAR 5
-
-
+#define STAR 2
 
 #endif
 

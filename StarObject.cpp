@@ -16,8 +16,8 @@ int        StarObject::count = 0;
 
 List *StarObject::stack = new List();
 
-StarObject::StarObject(Field *f) :
-		AObject(f, '.', (rand() % (H / 2)) + 1, (rand() % (W - 2)) + 1) {
+StarObject::StarObject() :
+		AObject('.', (rand() % (H / 2)) + 1, (rand() % (W - 2)) + 1) {
 	StarObject::count++;
 }
 
@@ -34,40 +34,36 @@ StarObject &StarObject::operator=(StarObject const &) {
 	return *this;
 }
 
-void StarObject::fall() {
+int StarObject::fall() {
 	f->erase(this->y, this->x);
 	this->y++;
-	if (this->y < H - 1)
+	if (this->y < H - 1) {
 		f->update(this->y, this->x, this->sym);
+		return (1);
+	}
+	else
+		return (0);
 }
 
 int StarObject::getCount() {
 	return count;
 }
 
-void StarObject::update(Field *f) {
-	StarObject::clean();
+void StarObject::update() {
+	StarObject::stack->iterate(&StarObject::clean);
 	for (int i = 0; i < STAR; i++) {
-//	while (StarObject::count < STAR) {
-		StarObject::stack->push(new StarObject(f));
+		StarObject::stack->push(new StarObject());
 	}
 }
 
-void StarObject::clean() {
-	List *list = new List();
-	StarObject *star;
-	int i, j = StarObject::count;
+int StarObject::clean(void *data) {
+	StarObject *star = static_cast<StarObject *>(data);
 
-	for (i = 0; i < j; i++) {
-		star = static_cast<StarObject *>(StarObject::stack->pop());
-		star->fall();
-		if (star->y >= H - 2) {
-			delete (star);
-		}
-		else {
-			list->push(star);
-		}
+	if (star->fall()) {
+		return (1);
 	}
-	delete(StarObject::stack);
-	StarObject::stack = list;
+	else {
+		delete (star);
+		return (0);
+	}
 }

@@ -53,19 +53,20 @@ void Player::keyHook(int key, ObjectSpawner * spawner) {
 			spawner->spawnBullet(bullet, y, x, dmg);
 			break;
 		default:
-			//wprintw(f->getWin(), "%d", key);
-//			wrefresh(f->getWin());
 			break;
 	}
 }
 
 bool Player::setPause(int key) {
-	if (key == PAUSE)
+	if (key == PAUSE) {
 		pause = !pause;
+		nodelay(stdscr, pause);
+	}
 	if (!hp) {
 		mvwprintw(f->getInfo(), 5, W / 2, "GAME OVER");
 		wrefresh(f->getInfo());
-		while (1);
+		nodelay(stdscr, false);
+		while (getch() != 'q');
 		endwin();
 		exit(1);
 	}

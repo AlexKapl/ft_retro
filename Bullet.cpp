@@ -40,7 +40,7 @@ int Bullet::fall() {
 
 void Bullet::setBullet(int type, int y, int x, int dmg) {
 	this->sym = type;
-	this->y = y;
+	this->y = y - 1;
 	this->x = x;
 	this->dmg = dmg;
 	this->hp = 1;
@@ -48,4 +48,5 @@ void Bullet::setBullet(int type, int y, int x, int dmg) {
 
 void Bullet::freeBullet() {
 	this->hp = -1;
+	f->erase(y, x);
 }

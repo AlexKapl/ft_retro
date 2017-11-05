@@ -101,7 +101,7 @@ void ObjectSpawner::updateEnemies() {
 			delete (enemies[i]);
 			enemies[i] = nullptr;
 		}
-		if (enemies[i] && !enemies[i]->fall()) {
+		else if (enemies[i] && !enemies[i]->fall()) {
 			delete (enemies[i]);
 			enemies[i] = nullptr;
 		}

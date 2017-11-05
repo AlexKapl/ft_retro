@@ -37,6 +37,7 @@ static void game_loop() {
 
 	do {
 		key = getch();
+		key = (rand() % 2) ? ATTACK : (rand() % 2 ? KEY_LEFT : KEY_RIGHT);
 		if (player->setPause(key)) {
 			player->keyHook(key, spawner);
 			spawner->update();

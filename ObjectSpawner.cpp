@@ -18,10 +18,16 @@ ObjectSpawner::ObjectSpawner() :
 		enemies(new Enemy *[10]),
 		bullets(new Bullet *[20]),
 		starCount(50), asterCount(10),
-		bulletCount(20), bullet(0),
-		starClock(clock()), bulletClock(starClock) {}
+		enemyCount(10), bulletCount(20), bullet(0),
+		starClock(clock()), bulletClock(starClock) {
+	for (int i = 0; i < bulletCount; ++i) {
+		bullets[i] = new Bullet();
+	}
+}
 
-ObjectSpawner::ObjectSpawner(ObjectSpawner const &) {}
+ObjectSpawner::ObjectSpawner(ObjectSpawner const &)
+		: stars(), asteroids(), enemies(), bullets(), starCount(), asterCount(),
+		  enemyCount(), bulletCount(), bullet(), starClock(), bulletClock() {}
 
 ObjectSpawner::~ObjectSpawner() {
 	delete[](stars);
@@ -37,10 +43,10 @@ void ObjectSpawner::spawnBullet(int type, int y, int x, int dmg) {
 
 	if (bullet < bulletCount)
 		while (i < bulletCount) {
-			if (bullets[i] == nullptr) {
-				bullets[i] = new Bullet(type, y, x, dmg);
+			if (bullets[i]->getHp() == -1) {
+				bullets[i]->setBullet();
 				bullet++;
-				return ;
+				return;
 			}
 			i++;
 		}
@@ -103,7 +109,7 @@ void ObjectSpawner::updateEnemies() {
 }
 
 void ObjectSpawner::updateBullets() {
-	for (int i = 0, j = bulletCount; i < j; i++) {
+	for (int i = 0; i < bulletCount; i++) {
 		if (bullets[i] && !bullets[i]->fall()) {
 			delete (bullets[i]);
 			bullets[i] = nullptr;

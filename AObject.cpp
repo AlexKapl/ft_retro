@@ -14,6 +14,9 @@
 
 Field* 	AObject::f = nullptr;
 
+AObject::AObject() :
+		sym(0), y(0), x(0), hp(0), dmg(0), type(BULLET) {}
+
 AObject::AObject(int c, int y, int x, int dmg) :
 		sym(c), y(y), x(x), hp(1), dmg(dmg), type(BULLET) {
 	f->update(y, x, c, this);
@@ -34,7 +37,8 @@ AObject::AObject(AObject const &copy) :
 }
 
 AObject::~AObject() {
-	f->erase(y, x);
+	if (f->getObject(y, x) == this)
+		f->erase(y, x);
 }
 
 AObject &AObject::operator=(AObject const &) {
@@ -44,8 +48,6 @@ AObject &AObject::operator=(AObject const &) {
 void AObject::setF(Field *f) {
 	AObject::f = f;
 }
-
-AObject::AObject() : sym(0), y(0), x(0), type(REGULAR) {}
 
 AObject::type_e AObject::getType() const {
 	return type;

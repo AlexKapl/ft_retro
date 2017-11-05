@@ -1,6 +1,8 @@
 #include "Bullet.hpp"
 
-Bullet::Bullet() {}
+Bullet::Bullet() : AObject() {
+	this->hp = -1;
+}
 
 Bullet::Bullet(int type, int y, int x, int dmg) :
 		AObject(type, y - 1, x, dmg) {
@@ -21,7 +23,7 @@ int Bullet::fall() {
 	AObject *obj;
 
 	if (f->getObject(y, x) == this)
-		f->erase(x, y);
+		f->erase(y, x);
 	this->y--;
 	if (y > 0) {
 		obj = f->getObject(y, x);
@@ -29,8 +31,9 @@ int Bullet::fall() {
 			f->update(y, x, sym, this);
 			return (1);
 		}
-		else
+		else {
 			obj->getDamage(this->dmg);
+		}
 	}
 	return (0);
 }

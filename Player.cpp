@@ -63,8 +63,8 @@ bool Player::setPause(int key) {
 	if (key == PAUSE)
 		pause = !pause;
 	if (!hp) {
-		wprintw(f->getWin(), "GAME OVER");
-		wrefresh(f->getWin());
+		mvwprintw(f->getInfo(), 5, W / 2, "GAME OVER");
+		wrefresh(f->getInfo());
 		while (1);
 		endwin();
 		exit(1);

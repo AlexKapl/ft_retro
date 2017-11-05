@@ -73,6 +73,6 @@ AObject *Field::getObject(int y, int x) {
 		return nullptr;
 }
 
-void Field::storeObject(int y, int x, AObject *obj) {
-	f[y][x] = obj;
+WINDOW *Field::getInfo() const {
+	return info;
 }

@@ -39,9 +39,9 @@ public:
 
 	AObject *	getObject(int y, int x);
 
-	void		storeObject(int y, int x, AObject * obj);
-
 	WINDOW *getWin() const;
+
+	WINDOW *getInfo() const;
 
 private:
 	const int	h;

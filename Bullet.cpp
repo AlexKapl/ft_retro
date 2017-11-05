@@ -1,7 +1,7 @@
 #include "Bullet.hpp"
 
 Bullet::Bullet() : AObject() {
-	this->hp = -1;
+	this->dmg = -1;
 }
 
 Bullet::Bullet(int type, int y, int x, int dmg) :
@@ -44,9 +44,5 @@ void Bullet::setBullet(int type, int y, int x, int dmg) {
 	this->x = x;
 	this->dmg = dmg;
 	this->hp = 1;
-}
-
-void Bullet::freeBullet() {
-	this->hp = -1;
-	f->erase(y, x);
+	f->update(y - 1, x, type, this);
 }

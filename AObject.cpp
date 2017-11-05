@@ -12,7 +12,7 @@
 
 #include "AObject.hpp"
 
-Field* 	AObject::f = nullptr;
+Field *AObject::f = nullptr;
 
 AObject::AObject() :
 		sym(0), y(0), x(0), hp(0), dmg(0), type(BULLET) {}
@@ -61,4 +61,25 @@ void AObject::getDamage(int dmg) {
 	this->hp -= dmg;
 	if (this->hp < 0)
 		this->hp = 0;
+}
+
+void AObject::erase() {
+	this->dmg = -1;
+	f->erase(y, x);
+}
+
+void AObject::update() {
+	this->dmg = 1;
+	this->hp = 1;
+	this->x = RANDX;
+	this->y = RANDY;
+	while (!f->isEmpty(this->y, this->x)) {
+		this->x = RANDX;
+		this->y = RANDY;
+	}
+	f->update(y, x, sym, this);
+}
+
+int AObject::getDmg() const {
+	return dmg;
 }

@@ -16,8 +16,6 @@ public:
 
 	void			setBullet(int type, int y, int x, int dmg);
 
-	void			freeBullet();
-
 private:
 
 };

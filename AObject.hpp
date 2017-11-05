@@ -40,9 +40,15 @@ public:
 
 	type_e getType() const;
 
+	void			erase();
+
+	virtual void update();
+
 	virtual int		fall() = 0;
 
 	virtual void	getDamage(int dmg);
+
+	int getDmg() const;
 
 protected:
 	int		sym;

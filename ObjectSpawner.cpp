@@ -13,15 +13,22 @@
 #include "ObjectSpawner.hpp"
 
 ObjectSpawner::ObjectSpawner() :
-		stars(new StarObject *[70]),
-		asteroids(new Asteroid *[10]),
-		enemies(new Enemy *[10]),
+		stars(new StarObject *[100]),
+		asteroids(new Asteroid *[15]),
+		enemies(new Enemy *[15]),
 		bullets(new Bullet *[20]),
 		starCount(50), asterCount(10),
 		enemyCount(10), bulletCount(20), bullet(0),
 		starClock(clock()), bulletClock(starClock) {
 	for (int i = 0; i < bulletCount; ++i) {
 		bullets[i] = new Bullet();
+	}
+	for (int i = 0; i < starCount; ++i) {
+		stars[i] = new StarObject();
+	}
+	for (int i = 0; i < enemyCount; ++i) {
+		enemies[i] = new Enemy();
+		asteroids[i] = new Asteroid();
 	}
 }
 
@@ -43,7 +50,7 @@ void ObjectSpawner::spawnBullet(int type, int y, int x, int dmg) {
 
 	if (bullet < bulletCount)
 		while (i < bulletCount) {
-			if (bullets[i]->getHp() == -1) {
+			if (bullets[i]->getDmg() == -1) {
 				bullets[i]->setBullet(type, y, x, dmg);
 				bullet++;
 				return;
@@ -68,26 +75,25 @@ void ObjectSpawner::update() {
 
 void ObjectSpawner::updateStars() {
 	for (int i = 0; i < starCount; i++) {
-		if (!stars[i])
-			stars[i] = new StarObject();
-		if (!stars[i]->fall()) {
-			delete (stars[i]);
-			stars[i] = nullptr;
+		if (stars[i]->getDmg() == -1) {
+			stars[i]->update();
+		}
+		else if (!stars[i]->fall()) {
+			stars[i]->erase();
 		}
 	}
 }
 
 void ObjectSpawner::updateAsteroids() {
 	for (int i = 0; i < asterCount; i++) {
-		if (!asteroids[i])
-			asteroids[i] = new Asteroid();
-		else if (!asteroids[i]->getHp()) {
-			delete (asteroids[i]);
-			asteroids[i] = nullptr;
+		if (asteroids[i]->getDmg() == -1) {
+			asteroids[i]->update();
 		}
-		if (asteroids[i] && !asteroids[i]->fall()) {
-			delete (asteroids[i]);
-			asteroids[i] = nullptr;
+		else if (!asteroids[i]->getHp()) {
+			asteroids[i]->erase();
+		}
+		else if (!asteroids[i]->fall()) {
+			asteroids[i]->erase();
 		}
 	}
 	starClock = clock();
@@ -95,23 +101,22 @@ void ObjectSpawner::updateAsteroids() {
 
 void ObjectSpawner::updateEnemies() {
 	for (int i = 0; i < enemyCount; i++) {
-		if (!enemies[i])
-			enemies[i] = new Enemy();
-		else if (!enemies[i]->getHp()) {
-			delete (enemies[i]);
-			enemies[i] = nullptr;
+		if (enemies[i]->getDmg() == -1) {
+			enemies[i]->update();
 		}
-		else if (enemies[i] && !enemies[i]->fall()) {
-			delete (enemies[i]);
-			enemies[i] = nullptr;
+		else if (!enemies[i]->getHp()) {
+			enemies[i]->erase();
+		}
+		else if (!enemies[i]->fall()) {
+			enemies[i]->erase();
 		}
 	}
 }
 
 void ObjectSpawner::updateBullets() {
 	for (int i = 0; i < bulletCount; i++) {
-		if (bullets[i]->getHp() > 0 && !bullets[i]->fall()) {
-			bullets[i]->freeBullet();
+		if (bullets[i]->getDmg() > 0 && !bullets[i]->fall()) {
+			bullets[i]->erase();
 			bullet--;
 		}
 	}

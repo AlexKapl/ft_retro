@@ -25,7 +25,6 @@
 #define PAUSE 10
 #define H 60
 #define W 120
-#define STAR 5
 
 #define RANDY ((rand() % (H / 2)) + 1)
 #define RANDX ((rand() % (W - 2)) + 1)

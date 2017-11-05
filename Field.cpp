@@ -59,7 +59,7 @@ WINDOW *Field::getWin() const {
 }
 
 bool Field::isEmpty(int y, int x) {
-	if (y > 0 && y < h && x > 0 && x < w) {
+	if (y > 0 && y < h - 1 && x > 0 && x < w - 1) {
 		return !f[y][x];
 	}
 	else return false;

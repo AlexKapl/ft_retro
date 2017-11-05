@@ -38,6 +38,8 @@ private:
 	void move(int x, int y);
 
 	bool	pause;
+
+	int		bullet;
 };
 
 

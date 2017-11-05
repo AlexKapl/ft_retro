@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "Player.hpp"
+#include "Bullet.hpp"
 
-Player::Player() : AObject('A' + COLOR_PAIR(1), H - 3, W / 2, 1, 10), pause(true) {
+Player::Player() : AObject('A', H - 3, W / 2, 50, 10), pause(true), bullet(0) {
 	type = SHIP;
 }
 
@@ -49,22 +50,20 @@ void Player::keyHook(int key) {
 			this->move(this->x, this->y - 1);
 			break;
 		case ATTACK:
+			Bullet::Bullet(bullet, x, y, dmg);
 			break;
 		default:
-//			wprintw(f->getWin(), "%d", key);
+			//wprintw(f->getWin(), "%d", key);
 //			wrefresh(f->getWin());
 			break;
 	}
 }
 
 bool Player::setPause(int key) {
-	if (key == PAUSE) {
+	if (key == ATTACK)
 		pause = !pause;
-		nodelay(stdscr, pause);
-	}
 	if (!hp) {
 		wprintw(f->getWin(), "GAME OVER");
-		wrefresh(f->getWin());
 		while (1);
 		endwin();
 		exit(1);

@@ -20,7 +20,7 @@
 class AObject {
 
 public:
-	enum type_e {REGULAR = 1, ASTEROID, SHIP};
+	enum type_e {REGULAR = 1, ASTEROID, SHIP, BULLET};
 
 	AObject();
 

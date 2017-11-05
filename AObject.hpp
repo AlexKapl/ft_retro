@@ -24,7 +24,7 @@ public:
 
 	AObject();
 
-	AObject(char, int, int, int, int);
+	AObject(int, int, int, int, int);
 
 	AObject(AObject const &copy);
 
@@ -43,7 +43,7 @@ public:
 	virtual void	getDamage(int dmg);
 
 protected:
-	char	sym;
+	int		sym;
 	int		y;
 	int		x;
 	int		hp;

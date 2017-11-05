@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_retro.h                                         :+:      :+:    :+:   */
+/*   Enemy.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/04 15:31:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/04 15:31:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/05 17:08:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/05 17:08:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_RETRO_H
-#define FT_RETRO_H
+#ifndef ENEMY_HPP
+# define ENEMY_HPP
 
-# include <ncurses.h>
-# include <iostream>
-# include <unistd.h>
+#include "AObject.hpp"
 
-#define LEFT 260
-#define RIGHT 261
-#define DOWN 259
-#define UP 258
-#define ATTACK 32
-#define PAUSE 10
-#define H 60
-#define W 120
-#define STAR 5
+class Enemy :
+		public AObject{
 
-#define RANDY ((rand() % (H / 2)) + 1)
-#define RANDX ((rand() % (W - 2)) + 1)
+public:
+	Enemy();
 
-class	AObject;
-class	Field;
+	Enemy(Enemy const &copy);
+
+	~Enemy();
+
+	Enemy &operator=(Enemy const &assign);
+
+	virtual int		fall();
+
+private:
+
+};
+
 
 #endif
-
-///usleep() ± speed game

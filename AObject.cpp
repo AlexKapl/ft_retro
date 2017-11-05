@@ -14,8 +14,12 @@
 
 Field* 	AObject::f = nullptr;
 
-AObject::AObject(char c, int y, int x, int hp, int dmg) :
+AObject::AObject(int c, int y, int x, int hp, int dmg) :
 		sym(c), y(y), x(x), hp(hp), dmg(dmg), type(REGULAR) {
+	while (!f->isEmpty(this->y, this->x)) {
+		this->x = RANDX;
+		this->y = RANDY;
+	}
 	f->update(y, x, c, this);
 }
 

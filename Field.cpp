@@ -12,12 +12,16 @@
 
 #include "Field.hpp"
 
-Field::Field() : h(H), w(W), f(new AObject **[h]),
-				 win(newwin(Field::h, Field::w, 0, 0)) {
+Field::Field() :
+		h(H), w(W), f(new AObject **[h]),
+		win(newwin(h, w, 0, 0)),
+		info(newwin(10, w, h - 1, 0)) {
 	for (int i = 0; i < h; i++)
 		f[i] = new AObject *[w];
-	wborder(win, '|', '|', 0, 0, 0, 0, 0, 0);
+	wborder(win, 0, 0, 0, 0, 0, 0, 0, 0);
+	wborder(info, 0, 0, 0, 0, '|', '|', 0, 0);
 	wrefresh(win);
+	wrefresh(info);
 }
 
 Field::Field(Field const &copy) : h(H), w(W), win(copy.win) {}

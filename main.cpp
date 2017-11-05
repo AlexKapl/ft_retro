@@ -23,6 +23,8 @@ static void init_ncurses() {
 	nodelay(stdscr, true);
 	keypad(stdscr, true);
 	start_color();
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
+	init_pair(2, COLOR_RED, COLOR_BLACK);
 }
 
 static void game_loop() {
@@ -38,7 +40,6 @@ static void game_loop() {
 			player->keyHook(key);
 			spawner->update();
 			wrefresh(f->getWin());
-			usleep(20000);
 		}
 	} while (key != 'q');
 }

@@ -48,6 +48,7 @@ private:
 	const int	w;
 	AObject		***f;
 	WINDOW		*win;
+	WINDOW		*info;
 	static const int	empty = ' ';
 };
 

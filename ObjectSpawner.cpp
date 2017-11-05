@@ -15,8 +15,9 @@
 ObjectSpawner::ObjectSpawner() :
 		stars(new StarObject *[50]),
 		asteroids(new Asteroid *[10]),
+		enemies(new Enemy*[10]),
 		starCount(50), asterCount(10),
-		starClock(clock()), asterClock(clock()) {}
+		starClock(clock()) {}
 
 ObjectSpawner::ObjectSpawner(ObjectSpawner const &) {}
 
@@ -30,14 +31,13 @@ ObjectSpawner &ObjectSpawner::operator=(ObjectSpawner const &) {
 }
 
 void ObjectSpawner::update() {
-	static clock_t	timestamp = clock();
-	float	diff;
+	float diff = (static_cast<float>((clock() - starClock)) / CLOCKS_PER_SEC *
+				  10000);
 
-	diff = (static_cast<float>((clock () - timestamp )) / CLOCKS_PER_SEC * 10000);
-	if (diff > 5)
+	if (diff > 1000) {
 		updateStars();
-	if (diff > 5)
 		updateAsteroids();
+	}
 }
 
 void ObjectSpawner::updateStars() {
@@ -60,4 +60,5 @@ void ObjectSpawner::updateAsteroids() {
 			asteroids[i] = nullptr;
 		}
 	}
+	starClock = clock();
 }

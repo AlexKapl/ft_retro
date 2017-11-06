@@ -37,7 +37,13 @@ Field::Field(Field const &copy) :
 
 Field::~Field() {}
 
-Field &Field::operator=(Field const &) {
+Field &Field::operator=(Field const & ass) {
+	if (this != &ass) {
+		this->f = ass.f;
+		this->info = ass.info;
+		this->start = ass.start;
+		this->score = ass.score;
+	}
 	return *this;
 }
 

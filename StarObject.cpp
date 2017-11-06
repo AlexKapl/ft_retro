@@ -18,7 +18,16 @@ StarObject::StarObject(StarObject const &copy) : AObject(copy) {}
 
 StarObject::~StarObject() {}
 
-StarObject &StarObject::operator=(StarObject const &) {
+StarObject &StarObject::operator=(StarObject const & ass) {
+	if (this != &ass) {
+		this->sym = ass.sym;
+		this->y = ass.y;
+		this->x = ass.x;
+		this->hp = ass.hp;
+		this->dmg = ass.dmg;
+		this->sp = ass.sp;
+		this->type = ass.type;
+	}
 	return *this;
 }
 

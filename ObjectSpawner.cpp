@@ -43,7 +43,20 @@ ObjectSpawner::~ObjectSpawner() {
 	delete[](asteroids);
 }
 
-ObjectSpawner &ObjectSpawner::operator=(ObjectSpawner const &) {
+ObjectSpawner &ObjectSpawner::operator=(ObjectSpawner const &ass) {
+	if (this != &ass) {
+		this->stars = ass.stars;
+		this->asteroids = ass.asteroids;
+		this->enemies = ass.enemies;
+		this->bullets = ass.bullets;
+		this->powerUp = ass.powerUp;
+		this->starCount = ass.starCount;
+		this->enemyCount = ass.enemyCount;
+		this->bullet = ass.bullet;
+		this->starClock = ass.starClock;
+		this->enemyClock = ass.enemyClock;
+		this->bulletClock = ass.starClock;
+	}
 	return *this;
 }
 

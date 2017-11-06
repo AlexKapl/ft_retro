@@ -23,7 +23,18 @@ Player::Player(Player const &copy) : AObject(copy) {}
 Player::~Player() {
 }
 
-Player &Player::operator=(Player const &) {
+Player &Player::operator=(Player const & ass) {
+	if (this != &ass) {
+		this->sym = ass.sym;
+		this->y = ass.y;
+		this->x = ass.x;
+		this->hp = ass.hp;
+		this->dmg = ass.dmg;
+		this->sp = ass.sp;
+		this->type = ass.type;
+		this->pause = ass.pause;
+		this->bullet = ass.bullet;
+	}
 	return *this;
 }
 
